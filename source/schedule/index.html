@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家族战战术指挥板</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        .font-tech { font-family: 'Orbitron', sans-serif; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .neon-text { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen overflow-hidden flex flex-col md:flex-row" x-data="clanApp()">
+
+    <div class="w-full md:w-1/3 h-screen bg-slate-900 border-r border-slate-800 flex flex-col z-20 shadow-2xl">
+        <div class="p-6 border-b border-slate-800 bg-slate-900">
+            <h2 class="text-xl font-bold text-sky-400 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                战术配置台
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">结构已修复 · 截图无错位</p>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide">
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs text-slate-400 uppercase font-bold tracking-wider">我方家族</label>
+                    <input type="text" x-model="config.teamA" class="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 mt-1 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 uppercase font-bold tracking-wider">敌方家族</label>
+                    <input type="text" x-model="config.teamB" class="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 mt-1 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 uppercase font-bold tracking-wider">对战日期</label>
+                    <input type="date" x-model="config.date" class="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 mt-1 text-slate-300">
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-slate-300">排表详情</h3>
+                    <button @click="addRow()" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1 rounded transition-colors flex items-center gap-1">
+                        <span>+</span> 添加一行
+                    </button>
+                </div>
+
+                <template x-for="(item, index) in config.rows" :key="index">
+                    <div class="bg-slate-800/50 rounded-lg p-3 mb-3 border border-slate-700 group hover:border-sky-500/50 transition-colors">
+                        <div class="flex justify-between mb-2">
+                            <input type="text" x-model="item.title" placeholder="阶段名称" class="bg-transparent text-sm font-bold text-sky-200 placeholder-slate-600 focus:outline-none w-1/2">
+                            <input type="text" x-model="item.time" placeholder="时间" class="bg-transparent text-xs text-right text-slate-400 placeholder-slate-600 focus:outline-none w-1/3">
+                        </div>
+                        <textarea x-model="item.content" placeholder="成员名单 (逗号分隔)" class="w-full bg-slate-900 text-sm text-slate-300 rounded p-2 border border-slate-700 focus:border-sky-500 focus:outline-none h-20 resize-none"></textarea>
+                        
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="flex gap-2">
+                                <label class="flex items-center gap-1 cursor-pointer">
+                                    <input type="radio" x-model="item.type" value="normal" :name="'type-'+index" class="accent-sky-500">
+                                    <span class="text-xs text-slate-400">列表</span>
+                                </label>
+                                <label class="flex items-center gap-1 cursor-pointer">
+                                    <input type="radio" x-model="item.type" value="highlight" :name="'type-'+index" class="accent-sky-500">
+                                    <span class="text-xs text-slate-400">高亮块</span>
+                                </label>
+                            </div>
+                            <button @click="removeRow(index)" class="text-red-500 hover:text-red-400 text-xs opacity-50 group-hover:opacity-100 transition-opacity">删除</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-slate-800 bg-slate-900">
+            <button @click="downloadImage()" class="w-full bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold py-3 rounded-lg shadow-lg shadow-sky-900/50 flex justify-center items-center gap-2 transition-all active:scale-95">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                生成并下载图片
+            </button>
+        </div>
+    </div>
+
+    <div class="flex-1 bg-black flex items-center justify-center p-4 md:p-10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.9)_2px,transparent_2px),linear-gradient(90deg,rgba(15,23,42,0.9)_2px,transparent_2px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div id="capture-target" class="relative w-full max-w-2xl bg-slate-950 rounded-xl overflow-hidden shadow-2xl border border-slate-800">
+            
+            <div class="h-1 w-full bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500"></div>
+
+            <div class="p-8 pb-4 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c1.45 0 2.76.62 3.66 1.62L12 8.32 8.34 4.62C9.24 3.62 10.55 3 12 3zm-6 2h2.24l3.03 3.03-1.63 1.63L6.09 6.15C5.46 5.86 5.06 5.23 5 5zm0 14v-2.18l3.63-3.63 1.63 1.63-3.03 3.03C6.41 18.59 5.76 19 5 19zm7 0c-1.45 0-2.76-.62-3.66-1.62L12 13.68l3.66 3.69c-.9 1-2.21 1.63-3.66 1.63zm6-2h-2.24l-3.03-3.03 1.63-1.63 3.63 3.63c.63.29 1.03.92 1.09 1.03z"/></svg>
+                </div>
+                
+                <div class="relative z-10 flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-sky-500/20 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded text-[10px] font-bold tracking-widest uppercase font-tech">Operation</span>
+                            <span class="text-slate-500 text-xs font-mono" x-text="config.date"></span>
+                        </div>
+                        <div class="flex items-baseline gap-4 font-black italic tracking-tighter">
+                            <span class="text-4xl text-white neon-text" x-text="config.teamA"></span>
+                            <span class="text-xl text-slate-600 font-tech">VS</span>
+                            <span class="text-4xl text-white" x-text="config.teamB"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8 pt-2 space-y-6 bg-gradient-to-b from-slate-950 to-slate-900">
+                <template x-for="row in config.rows">
+                    <div class="relative group">
+                        <div class="absolute left-[7px] top-8 bottom-0 w-px bg-slate-800 -z-10 group-last:hidden"></div>
+
+                        <div class="flex items-start gap-5">
+                            <div class="flex flex-col items-center mt-1.5">
+                                <div class="w-3.5 h-3.5 rounded-full bg-slate-800 border-2 border-sky-500 shadow-[0_0_10px_rgba(14,165,233,0.5)]"></div>
+                            </div>
+
+                            <div class="flex-1">
+                                <div class="flex justify-between items-baseline mb-3">
+                                    <h3 class="text-base font-bold text-slate-200" x-text="row.title"></h3>
+                                    <span class="font-tech text-sky-400/80 text-xs tracking-wider" x-text="row.time"></span>
+                                </div>
+
+                                <template x-if="row.type === 'normal'">
+                                    <div class="flex flex-wrap gap-2.5">
+                                        <template x-for="member in row.content.split(/[,，]/)">
+                                            <div x-show="member.trim() !== ''" class="glass px-4 py-2 rounded-md border border-slate-700/50 flex items-center gap-2.5">
+                                                <div class="w-1.5 h-1.5 bg-sky-400 rounded-full shadow-sm shadow-sky-500/50"></div>
+                                                <span class="text-[15px] font-medium text-slate-200" x-text="member.trim()"></span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <template x-if="row.type === 'highlight'">
+                                    <div x-show="row.content.trim() !== ''" class="relative overflow-hidden rounded-lg border border-sky-400/60 p-3 flex items-center gap-3 bg-sky-950/20 shadow-[inset_0_0_20px_rgba(14,165,233,0.1)]">
+                                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-sky-400/10 to-transparent -translate-x-full animate-[shimmer_3s_infinite]"></div>
+                                        
+                                        <div class="p-1.5 bg-sky-400/20 rounded-md shrink-0 relative z-10">
+                                            <svg class="w-5 h-5 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                        </div>
+                                        
+                                        <div class="text-base font-bold text-white tracking-wide relative z-10 flex flex-wrap gap-3">
+                                             <template x-for="txt in row.content.split(/[,，]/)">
+                                                <span x-text="txt.trim()"></span>
+                                             </template>
+                                        </div>
+                                    </div>
+                                </template>
+
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="px-8 py-3 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-600 font-mono bg-slate-950">
+                <span>SYSTEM: CLAN_WAR_V2</span>
+                <span>STATUS: LOCKED</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('clanApp', () => ({
+                config: {
+                    teamA: '秋语',
+                    teamB: '翎芸',
+                    date: '2025-10-18',
+                    rows: [
+                        { title: '团本一', time: '20:00', type: 'highlight', content: '蝙蝠' },
+                        { title: '副将', time: '20:20', type: 'normal', content: '拈花(开心), 江南(声), 海北(👊)' },
+                        { title: '主将', time: '20:33', type: 'normal', content: '木兮(晨曦), 青栀(抑郁), Shannon(👊)' },
+                        { title: '王牌', time: '20:53', type: 'highlight', content: '织雾竹, 南乔' }
+                    ]
+                },
+                init() {
+                    const saved = localStorage.getItem('clan_war_config');
+                    if (saved) { this.config = JSON.parse(saved); }
+                    this.$watch('config', (val) => {
+                        localStorage.setItem('clan_war_config', JSON.stringify(val));
+                    });
+                },
+                addRow() {
+                    this.config.rows.push({ title: '新阶段', time: '20:XX', type: 'normal', content: '' });
+                },
+                removeRow(index) {
+                    if(confirm('确定删除这一行吗？')) { this.config.rows.splice(index, 1); }
+                },
+                downloadImage() {
+                    const element = document.getElementById("capture-target");
+                    const btn = document.querySelector('button');
+                    const originalText = btn.innerText;
+                    btn.innerText = "正在渲染...";
+                    html2canvas(element, {
+                        scale: 2,
+                        backgroundColor: "#020617",
+                        useCORS: true,
+                        logging: false
+                    }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = `家族战_${this.config.teamA}_VS_${this.config.teamB}.png`;
+                        link.href = canvas.toDataURL("image/png");
+                        link.click();
+                        btn.innerText = originalText;
+                    }).catch(err => {
+                        console.error(err);
+                        alert('生成失败，请检查浏览器兼容性');
+                        btn.innerText = originalText;
+                    });
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
