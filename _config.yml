@@ -101,5 +101,5 @@ theme: fluid
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: root@45.77.251.174:/var/repo/blog.git
-  branch: master
+  repo: git@github.com:xishuchkui-code/xishuchkui-code.github.io.git
+  branch: main
