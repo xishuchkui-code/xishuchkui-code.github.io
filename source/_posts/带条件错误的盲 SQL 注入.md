@@ -6,6 +6,7 @@ categories:
 tags:
   - SQL注入
   - PortSwigger
+description: 参考博客:https://h4cker.zip/post/1ead73/#lab-12
 index_img: /img/default.png
 banner_img: /img/default.png
 ---

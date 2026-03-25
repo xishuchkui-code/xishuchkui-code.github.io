@@ -100,7 +100,7 @@ stockApi=http://127.1/%25%36%31%25%36%34%25%36%64%25%36%39%25%36%65
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325160423.png)
 先随便进一个网页抓包发到重发器
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325160601.png)
-直接把api改成http://192.168.0.12:8080/admin肯定是不行的，只能从本地应用获取
+直接把api改成`http://192.168.0.12:8080/admin`肯定是不行的，只能从本地应用获取
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325160732.png)
 从其他包找突破口，在每次点击下一页的时候发现都有一次重定向
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325161126.png)
