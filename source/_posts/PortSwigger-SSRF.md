@@ -6,6 +6,9 @@ tags:
   - PortSwigger
 categories:
   - 学习笔记
+description: 记录了在 PortSwigger 靶场中完成基础 SSRF 漏洞实战的完整学习过程，包含了抓包分析与 payload 构造思路。
+index_img: /img/default.png
+banner_img: /img/default.png
 ---
 ## Lab1: Basic SSRF against the local server
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325142213.png)
@@ -16,7 +19,7 @@ categories:
 发到重放器,然后注意到有个stockApi,再发到编码区看看
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325142807.png)
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325142851.png)
-根据题目，将stockApi参数中的URL更改为http://localhost/admin，这样就把URL交给服务端访问，服务端的localhost请求就来着本地，这样就进入了管理页面
+根据题目，将stockApi参数中的URL更改为`http://localhost/admin`，这样就把URL交给服务端访问，服务端的localhost请求就来着本地，这样就进入了管理页面
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325143510.png)
 可以看到出现删除carlos用户，查看这个删除按钮的代码
 ![img](/img/PortSwigger-SSRF/Pasted%20image%2020260325143725.png)
