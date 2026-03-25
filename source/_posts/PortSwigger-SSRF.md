@@ -7,7 +7,7 @@ tags:
 categories:
   - 学习笔记
 description: 记录了在 PortSwigger 靶场中完成基础 SSRF 漏洞实战的完整学习过程，包含了抓包分析与 payload 构造思路。
-index_img: /img/default.png
+index_img: /img/heid.png
 banner_img: /img/default.png
 ---
 ## Lab1: Basic SSRF against the local server
