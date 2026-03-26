@@ -10,7 +10,6 @@ description: 记录了在 PortSwigger 靶场中完成基础 SSRF 漏洞实战的
 index_img: /img/heid.png
 banner_img: /img/default.png
 ---
-
 ## Lab1: Basic SSRF against the local server
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142213.png)
 说库存检查功能有问题,去相关位置抓个包
@@ -20,7 +19,7 @@ banner_img: /img/default.png
 发到重放器,然后注意到有个stockApi,再发到编码区看看
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142807.png)
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142851.png)
-根据题目，将stockApi参数中的URL更改为http://localhost/admin，这样就把URL交给服务端访问，服务端的localhost请求就来着本地，这样就进入了管理页面
+根据题目，将stockApi参数中的URL更改为`http://localhost/admin`，这样就把URL交给服务端访问，服务端的localhost请求就来着本地，这样就进入了管理页面
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325143510.png)
 可以看到出现删除carlos用户，查看这个删除按钮的代码
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325143725.png)
@@ -101,7 +100,7 @@ stockApi=http://127.1/%25%36%31%25%36%34%25%36%64%25%36%39%25%36%65
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325160423.png)
 先随便进一个网页抓包发到重发器
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325160601.png)
-直接把api改成http://192.168.0.12:8080/admin肯定是不行的，只能从本地应用获取
+直接把api改成`http://192.168.0.12:8080/admin`肯定是不行的，只能从本地应用获取
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325160732.png)
 从其他包找突破口，在每次点击下一页的时候发现都有一次重定向
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260325161126.png)
@@ -193,3 +192,71 @@ Priority: u=0, i
 爆破
 ![](/img/PortSwigger-SSRF/Pasted%20image%2020260326112853.png)
 在协作器成功得到用户名`peter-S8Ob7W`
+
+
+## Lab7: SSRF with whitelist-based input filter
+![](/img/PortSwigger-SSRF/Pasted%20image%2020260326141612.png)
+还是库存检查功能有问题，实验描述是白名单，先在库存检查处抓包看看，发到重发器
+![](/img/PortSwigger-SSRF/Pasted%20image%2020260326141826.png)
+`URL`解码看看`stockApi`，尝试换成实验给的`http://localhost/admin`
+```
+stockApi=http://stock.weliketoshop.net:8080/product/stock/check?productId=1&storeId=1
+```
+![](/img/PortSwigger-SSRF/Pasted%20image%2020260326142105.png)
+强制要求 URL 的主机名（Host）部分必须完全匹配`stock.weliketoshop.net`
+
+1. 利用 URL 的凭证语法 (`@`)
+
+标准 URL 的规范允许在主机名前面嵌入用户名和密码，格式为：
+```
+http://username:password@hostname/
+```
+如果将 Payload 尝试修改为： 
+```
+stockApi=http://localhost@stock.weliketoshop.net/
+```
+后端验证器在解析时，会认为目标主机依然是 `stock.weliketoshop.net`（满足白名单条件）
+但此时，后端 HTTP 客户端实际去请求的依然是 `stock.weliketoshop.net`（只是带上了名为 `localhost` 的空密码凭证），这并不能帮我们访问到本地。
+
+2. 引入片段标识符 (`#`)
+
+为了让实际发起请求的客户端去访问 `localhost`，我们可以尝试使用 `#`（在 URL 语法中，`#` 表示片段/锚点，它后面的内容通常不会作为主机名解析）。 假设构造： 
+```
+stockApi=http://localhost#@stock.weliketoshop.net/
+```
+
+- 预期： HTTP 客户端可能会将 `localhost` 视为主机，而将 `#@stock.weliketoshop.net/` 视为片段截断。
+- 实际： 这个请求会直接被验证器拦截。因为验证器也能识别 `#`，判断出真正的主机名变成了 `localhost`，从而触发你看到的那个报错。
+
+3. 使用双重 URL 编码实施欺骗 (关键绕过点)
+
+为了让验证器“眼盲”，我们需要对 `#` 进行 URL 编码欺骗。
+
+- `#` 的单次 URL 编码是 `%23`。
+- `#` 的双重 URL 编码是 `%2523`。
+
+当传入双重编码的 Payload： 
+```
+stockApi=http://localhost%2523@stock.weliketoshop.net/admin
+```
+
+**它的底层绕过原理：**
+
+- **第一关（验证器校验）：** 
+验证器接收到参数后，通常会进行一次 URL 解码，将 `%2523` 解码为 `%23`。此时的 URL 是 
+```
+http://localhost%23@stock.weliketoshop.net/admin
+```
+由于 `%23` 没有被解码为具有特殊截断含义的 `#`，验证器会将其视为用户名的一部分。因此，它提取到的主机名依然是 `@` 后面的 `stock.weliketoshop.net`，顺利通过白名单校验。
+
+- **第二关（HTTP 客户端发起请求）：** 
+实际发起底层网络请求的库，在处理这个请求时会再次进行解码，将 `%23` 还原成了 `#`
+```
+http://localhost#@stock.weliketoshop.net/admin
+```
+此时它解析到的结构变成了以 `localhost` 为主机，成功向本地接口发起了请求。
+![](/img/PortSwigger-SSRF/Pasted%20image%2020260326143557.png)
+成功进入管理页面，后面找到删除`carlos`的代码即可
+![](/img/PortSwigger-SSRF/Pasted%20image%2020260326143718.png)
+跟踪重定向,最后一个`SSRF`实验完成
+![](/img/PortSwigger-SSRF/Pasted%20image%2020260326143753.png)
