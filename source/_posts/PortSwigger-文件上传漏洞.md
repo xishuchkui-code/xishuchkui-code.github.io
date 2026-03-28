@@ -6,7 +6,7 @@ categories:
 tags:
   - 文件上传漏洞
   - PortSwigger
-index_img: /img/shen.png
+index_img: /img/default.png
 banner_img: /img/default.png
 ---
 
