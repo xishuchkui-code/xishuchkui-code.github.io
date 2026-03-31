@@ -1,20 +1,15 @@
 ---
-title: 带条件错误的盲 SQL 注入
-date: 2026-02-15 19:00:00
-categories:
-  - 学习笔记
+title: 带条件错误的盲SQL注入
+date: 2025-12-06 10:59:48
 tags:
-  - SQL注入
-  - PortSwigger
-description: 参考博客:https://h4cker.zip/post/1ead73/#lab-12
+  - 学习笔记
 index_img: /img/default.png
 banner_img: /img/default.png
 ---
-
 参考博客
 https://h4cker.zip/post/1ead73/#lab-12
 
-![](/img/带条件错误的盲%20SQL%20注入/Pasted%20image%2020260318145843.png)
+![](../img/带条件错误的盲SQL注入/带条件错误的盲SQL注入-20260318145843.png)
 **漏洞原理：** 当应用程序不会将数据库查询结果或原本的数据库报错信息回显在页面上，但**能够处理并区分正常和报错的 HTTP 响应**（例如：正常查询返回 200，触发除零错误返回 500）时，可以通过 `CASE WHEN` 语句结合人为制造的报错（如 `1/0`）来逐位推断数据。
 #### 确认注入点与数据库类型
 
@@ -69,9 +64,9 @@ TrackingId=8YXW3F8JRrXKA6KA'||(SELECT CASE WHEN (select substr(password,§1§,1)
         
     - 最终通过状态码过滤（比如只看返回 200 的请求），然后像你上一问那样按 Payload 1 排序，拼接出完整的密码。
 
-![](/img/带条件错误的盲%20SQL%20注入/Pasted%20image%2020260318145929.png)
-![](/img/带条件错误的盲%20SQL%20注入/Pasted%20image%2020260318145957.png)
+![](../img/带条件错误的盲SQL注入/带条件错误的盲SQL注入-20260318145929.png)
+![](../img/带条件错误的盲SQL注入/带条件错误的盲SQL注入-20260318145957.png)
 
 
-![](/img/带条件错误的盲%20SQL%20注入/Pasted%20image%2020260318152520.png)
+![](../img/带条件错误的盲SQL注入/带条件错误的盲SQL注入-20260318152520.png)
 

