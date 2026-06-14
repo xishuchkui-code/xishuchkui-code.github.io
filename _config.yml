@@ -4,8 +4,8 @@
 
 # Site
 title: xidumplings
-subtitle: ''
-description: '这是我的个人博客'
+subtitle: 'Web 安全笔记库'
+description: '记录 Web 安全学习、靶场实验、漏洞原理和工具环境配置。'
 keywords:
 author: xidumplings
 language: zh-CN
@@ -64,8 +64,21 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: uncategorized
+default_category: Web 安全
 category_map:
+  Web 安全: web-security
+  基础概念: fundamentals
+  认证与会话: auth-session
+  SQL 注入: sql-injection
+  文件上传: file-upload
+  SSRF: ssrf
+  靶场记录: labs
+  PortSwigger: portswigger
+  工具与环境: tools-env
+  Burp Suite: burp-suite
+  VS Code: vscode
+  Windows: windows
+  生活随笔: life
 tag_map:
 
 # Metadata elements
