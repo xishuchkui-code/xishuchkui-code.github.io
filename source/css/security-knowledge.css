@@ -6,6 +6,14 @@
   --sk-muted: #667085;
 }
 
+html[data-user-color-scheme="dark"] {
+  --sk-accent: #2dd4bf;
+  --sk-accent-soft: rgba(45, 212, 191, 0.14);
+  --sk-border: rgba(67, 82, 102, 0.65);
+  --sk-text: #d5dbe5;
+  --sk-muted: #aab6c5;
+}
+
 body {
   letter-spacing: 0;
 }
@@ -37,6 +45,8 @@ body {
 .index-card .post-meta,
 .post-metas,
 .category-list-count,
+.category-count,
+.list-group-count,
 .tagcloud a {
   color: var(--sk-muted);
 }
