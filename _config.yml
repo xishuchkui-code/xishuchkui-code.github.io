@@ -212,6 +212,13 @@ exclude:
   - tools
   - README.md
   - LICENSE
+  - DEPLOY.md
+  - db.json
+  - public
+  - xiaoye.jpg
+  - .deploy_git
+  - .superpowers
+  - .worktrees
   - purgecss.js
   - "*.config.js"
   - "package*.json"
