@@ -21,33 +21,22 @@
 - Do not modify or delete `source/img/**` except through normal references from existing Markdown.
 - Do not discard untracked `source/_posts/PortSwigger-JWT.md` or `source/img/PortSwigger-JWT/`.
 
-## Task 1: Add Search Generator And Baseline Build Check
+## Task 1: Confirm Fluid Local Search And Baseline Build Check
 
 **Files:**
-- Modify: `package.json`
-- Modify: `package-lock.json`
+- No source edits expected. Modify `package.json` and `package-lock.json` only if Fluid's built-in search generator is absent or broken.
 
-- [ ] **Step 1: Confirm the current search generator is missing**
-
-Run:
-
-```powershell
-npm ls hexo-generator-search --depth=0
-```
-
-Expected: command exits non-zero and shows `(empty)`.
-
-- [ ] **Step 2: Install the search generator**
+- [ ] **Step 1: Confirm Fluid's local search generator exists**
 
 Run:
 
 ```powershell
-npm install hexo-generator-search --save
+Test-Path node_modules\hexo-theme-fluid\scripts\generators\local-search.js
 ```
 
-Expected: `package.json` gains a `hexo-generator-search` dependency and `package-lock.json` updates.
+Expected: outputs `True`.
 
-- [ ] **Step 3: Run a clean build**
+- [ ] **Step 2: Run a clean build**
 
 Run:
 
@@ -56,18 +45,37 @@ npm run clean
 npm run build
 ```
 
-Expected: Hexo generation succeeds. If it fails because an existing post has malformed front matter, record the exact file and fix only that front matter in the relevant later task.
+Expected: Hexo generation succeeds.
 
-- [ ] **Step 4: Commit the dependency change**
+- [ ] **Step 3: Confirm the search output is correct**
 
 Run:
 
 ```powershell
-git add package.json package-lock.json
-git commit -m "chore: add local search generator"
+Test-Path public\local-search.xml
+Test-Path public\search.xml
+npm ls hexo-generator-search --depth=0
 ```
 
-Expected: commit succeeds and only dependency files are included.
+Expected:
+
+```text
+True
+False
+```
+
+The `npm ls` command exits non-zero with `(empty)`, confirming the redundant external search generator is not installed.
+
+- [ ] **Step 4: Commit only if a dependency correction was needed**
+
+If `hexo-generator-search` had been installed and removed, run:
+
+```powershell
+git add package.json package-lock.json
+git commit -m "chore: rely on Fluid local search generator"
+```
+
+Expected: commit succeeds and only dependency files are included. If no dependency correction was needed, leave this task with no commit.
 
 ## Task 2: Configure Site Metadata, Category Paths, And Fluid Navigation
 
@@ -645,7 +653,7 @@ Expected: commit includes only files needed for the verified fix.
 
 ## Self-Review
 
-- Spec coverage: the plan covers Fluid-based implementation, local search, navigation, category/tag architecture, existing article mapping, custom visual polish, and build/browser verification.
+- Spec coverage: the plan covers Fluid-based implementation, Fluid local search verification, navigation, category/tag architecture, existing article mapping, custom visual polish, and build/browser verification.
 - Placeholder scan: no `TBD`, `TODO`, `implement later`, or unspecified test steps remain.
 - Scope check: the plan avoids full theme replacement, body-content rewrites, deployment, comments, and large SEO work.
 - Worktree safety: the plan explicitly preserves untracked JWT files and avoids image deletion.
