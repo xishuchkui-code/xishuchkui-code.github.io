@@ -6,7 +6,6 @@ tags: [file-upload, web-security]
 description: 梳理文件上传漏洞的基础原理、常见校验点和绕过思路。
 render_with_liquid: false
 ---
-
 # 文件上传漏洞
 
 ## 一、 核心原理与危害

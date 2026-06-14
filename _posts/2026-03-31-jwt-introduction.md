@@ -6,7 +6,6 @@ tags: [jwt, auth, token]
 description: 梳理 JWT 的组成、签名验证、常见风险和安全使用边界。
 render_with_liquid: false
 ---
-
 # JWT介绍与原理
 
 ## 什么是JWT？

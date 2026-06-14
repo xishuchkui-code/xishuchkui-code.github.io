@@ -6,7 +6,6 @@ tags: [file-upload, portswigger, burp-suite]
 description: 记录 PortSwigger 文件上传漏洞实验的请求分析、绕过方式和复盘要点。
 render_with_liquid: false
 ---
-
 ## Lab 1: Remote code execution via web shell upload
 ![](/assets/img/PortSwigger-文件上传漏洞/PortSwigger-文件上传漏洞-1774676470436.png)
 登录所给的的账号，可以看到有个头像上传的地方

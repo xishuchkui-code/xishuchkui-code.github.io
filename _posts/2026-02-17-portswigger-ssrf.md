@@ -6,7 +6,6 @@ tags: [ssrf, portswigger, burp-suite]
 description: 记录 PortSwigger SSRF 靶场的抓包分析、payload 构造和实验复盘。
 render_with_liquid: false
 ---
-
 ## Lab1: Basic SSRF against the local server
 ![](/assets/img/PortSwigger-SSRF/PortSwigger-SSRF-20260325142213.png)
 说库存检查功能有问题,去相关位置抓个包
