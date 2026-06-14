@@ -1,0 +1,97 @@
+:root {
+  --sk-accent: #0f766e;
+  --sk-accent-soft: rgba(15, 118, 110, 0.09);
+  --sk-border: rgba(31, 41, 55, 0.1);
+  --sk-text: #1f2937;
+  --sk-muted: #667085;
+}
+
+body {
+  letter-spacing: 0;
+}
+
+.navbar {
+  box-shadow: 0 1px 0 rgba(31, 41, 55, 0.08);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  font-weight: 600;
+}
+
+.banner {
+  background-position: center;
+}
+
+.banner .h2,
+.banner h1 {
+  letter-spacing: 0;
+}
+
+.index-card {
+  border: 1px solid var(--sk-border);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.index-card .post-meta,
+.post-metas,
+.category-list-count,
+.tagcloud a {
+  color: var(--sk-muted);
+}
+
+.index-card .index-header .index-title a:hover,
+.markdown-body a {
+  color: var(--sk-accent);
+}
+
+.markdown-body {
+  color: var(--sk-text);
+  line-height: 1.82;
+}
+
+.markdown-body h2 {
+  border-bottom: 1px solid var(--sk-border);
+  padding-bottom: 0.35rem;
+}
+
+.markdown-body h3 {
+  margin-top: 1.8rem;
+}
+
+.markdown-body img {
+  border: 1px solid var(--sk-border);
+  border-radius: 6px;
+}
+
+.markdown-body code {
+  border-radius: 4px;
+}
+
+.tocbot-list a:hover,
+.tocbot-active-link {
+  color: var(--sk-accent);
+}
+
+.category-list a,
+.tagcloud a {
+  border-radius: 6px;
+}
+
+.category-list a:hover,
+.tagcloud a:hover {
+  background: var(--sk-accent-soft);
+  color: var(--sk-accent);
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .index-card {
+    border-radius: 6px;
+  }
+
+  .markdown-body {
+    line-height: 1.75;
+  }
+}
