@@ -1,9 +1,14 @@
 ---
 title: 带条件错误的盲SQL注入
 date: 2025-12-06 10:59:48
+categories:
+  - Web 安全
+  - SQL 注入
 tags:
-  - 学习笔记
-index_img: /img/default.png
+  - SQL 注入
+  - 盲注
+description: 记录带条件错误回显的盲 SQL 注入判断方法和实验过程。
+index_img:
 banner_img: /img/default.png
 ---
 参考博客

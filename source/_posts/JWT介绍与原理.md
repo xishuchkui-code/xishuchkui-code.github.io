@@ -1,9 +1,15 @@
 ---
 title: JWT介绍与原理
 date: 2026-03-31 11:07:59
+categories:
+  - Web 安全
+  - 认证与会话
 tags:
-  - 学习笔记
-index_img: /img/default.png
+  - JWT
+  - 认证
+  - Token
+description: 梳理 JWT 的组成、签名验证、常见风险和安全使用边界。
+index_img:
 banner_img: /img/default.png
 ---
 # JWT介绍与原理

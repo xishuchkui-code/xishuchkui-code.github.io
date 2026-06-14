@@ -1,13 +1,15 @@
 ---
 title: PortSwigger-SSRF
 date: 2026-02-17 16:38:37
+categories:
+  - Web 安全
+  - SSRF
 tags:
   - SSRF
   - PortSwigger
-categories:
-  - 学习笔记
-description: 记录了在 PortSwigger 靶场中完成基础 SSRF 漏洞实战的完整学习过程，包含了抓包分析与 payload 构造思路。
-index_img: /img/default.png
+  - Burp Suite
+description: 记录 PortSwigger SSRF 靶场的抓包分析、payload 构造和实验复盘。
+index_img:
 banner_img: /img/default.png
 ---
 ## Lab1: Basic SSRF against the local server

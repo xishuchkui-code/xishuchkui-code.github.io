@@ -2,11 +2,14 @@
 title: PortSwigger-文件上传漏洞
 date: 2025-12-09 17:31:31
 categories:
-  - 学习笔记
+  - Web 安全
+  - 文件上传
 tags:
-  - 文件上传漏洞
+  - 文件上传
   - PortSwigger
-index_img: /img/default.png
+  - Burp Suite
+description: 记录 PortSwigger 文件上传漏洞实验的请求分析、绕过方式和复盘要点。
+index_img:
 banner_img: /img/default.png
 ---
 ## Lab 1: Remote code execution via web shell upload
