@@ -371,7 +371,7 @@ navbar:
     - { key: "home", link: "/", icon: "iconfont icon-home-fill", name: "首页" }
     - { key: "web-security", link: "/categories/web-security/", icon: "iconfont icon-category-fill", name: "Web 安全" }
     - { key: "labs", link: "/tags/PortSwigger/", icon: "iconfont icon-bookmark-fill", name: "靶场记录" }
-    - { key: "tools", link: "/categories/tools-env/", icon: "iconfont icon-code", name: "工具与环境" }
+    - { key: "tools", link: "/tags/", icon: "iconfont icon-code", name: "工具与环境" }
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill", name: "归档" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill", name: "标签" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill", name: "关于" }
