@@ -1,0 +1,66 @@
+import { viteBundler } from '@vuepress/bundler-vite'
+import { defineUserConfig } from 'vuepress'
+import { plumeTheme } from 'vuepress-theme-plume'
+
+export default defineUserConfig({
+  lang: 'zh-CN',
+  title: 'xidumplings',
+  description: '记录 Web 安全学习、靶场实验、漏洞原理和工具环境配置。',
+  base: '/',
+  head: [
+    ['link', { rel: 'icon', href: '/assets/img/favicons/favicon.ico' }],
+    ['meta', { name: 'theme-color', content: '#0f766e' }],
+  ],
+  bundler: viteBundler(),
+  theme: plumeTheme({
+    hostname: 'https://xishuchkui-code.github.io',
+    docsRepo: 'xishuchkui-code/xishuchkui-code.github.io',
+    docsBranch: 'source',
+    docsDir: 'docs',
+    editLink: false,
+    lastUpdated: true,
+    contributors: false,
+    autoFrontmatter: false,
+    search: {
+      provider: 'local',
+    },
+    navbar: [
+      { text: '首页', link: '/' },
+      { text: '博客', link: '/blog/' },
+      { text: '分类', link: '/blog/categories/' },
+      { text: '标签', link: '/blog/tags/' },
+      { text: '归档', link: '/blog/archives/' },
+      { text: 'GitHub', link: 'https://github.com/xishuchkui-code' },
+    ],
+    collections: [
+      {
+        type: 'post',
+        dir: 'blog',
+        title: '博客',
+        link: '/blog/',
+        linkPrefix: '/posts/',
+        categories: true,
+        categoriesLink: '/blog/categories/',
+        categoriesText: '分类',
+        categoriesExpand: 'deep',
+        tags: true,
+        tagsLink: '/blog/tags/',
+        tagsText: '标签',
+        archives: true,
+        archivesLink: '/blog/archives/',
+        archivesText: '归档',
+        profile: {
+          name: 'xidumplings',
+          description: 'Web 安全学习笔记、靶场复盘和工具记录。',
+          avatar: '/assets/img/xiaoye.jpg',
+          location: 'Asia/Shanghai',
+          organization: 'xishuchkui-code',
+        },
+      },
+    ],
+    footer: {
+      message: 'Powered by VuePress Theme Plume',
+      copyright: 'Copyright © 2021-present xidumplings',
+    },
+  }),
+})

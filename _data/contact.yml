@@ -1,9 +1,0 @@
-# The contact options.
-
-- type: github
-  icon: "fab fa-github"
-  url: "https://github.com/xishuchkui-code"
-
-- type: rss
-  icon: "fas fa-rss"
-  noblank: true

@@ -1,20 +1,25 @@
 # Deployment
 
-This site is now a Jekyll/Chirpy site.
+This blog now uses VuePress Theme Plume.
 
-Local build:
-
-```powershell
-bundle install
-bundle exec jekyll build
-```
-
-Local preview:
+Install dependencies:
 
 ```powershell
-bundle exec jekyll serve
+npm install
 ```
 
-GitHub Pages deployment should build from the Jekyll source branch or a GitHub Actions workflow.
+Run a local preview:
 
-Note: this machine currently needs Ruby and Bundler installed before local Jekyll build and preview commands can run.
+```powershell
+npm run docs:dev
+```
+
+Build the static site:
+
+```powershell
+npm run docs:build
+```
+
+The build output is generated in `docs/.vuepress/dist`.
+
+GitHub Actions deploys every push to the `source` branch into the `main` branch for GitHub Pages.
