@@ -1,7 +1,3 @@
-param(
-  [string]$ZipPath = 'E:\Blog\1111.zip'
-)
-
 $ErrorActionPreference = 'Stop'
 
 function Assert-True {
@@ -19,18 +15,39 @@ $scriptPath = Join-Path $PSScriptRoot 'import-notion-zip.ps1'
 $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("notion-import-test-" + [guid]::NewGuid().ToString('N'))
 $blogRoot = Join-Path $tempRoot 'docs\blog'
 $assetsRoot = Join-Path $tempRoot 'docs\.vuepress\public\assets\img'
+$fixtureInner = Join-Path $tempRoot 'fixture-inner'
+$fixtureOuter = Join-Path $tempRoot 'fixture-outer'
+$innerZip = Join-Path $fixtureOuter 'ExportBlock-test-Part-1.zip'
+$outerZip = Join-Path $tempRoot 'notion-export.zip'
 
 try {
+  New-Item -ItemType Directory -Path $fixtureInner, $fixtureOuter -Force | Out-Null
+  Set-Content -LiteralPath (Join-Path $fixtureInner 'Test Article 0123456789abcdef0123456789abcdef.md') -Value @'
+# Test Article
+
+Intro paragraph.
+
+![](a-random-image-name.png)
+
+More notes.
+
+![](b-random-image-name.png)
+'@ -Encoding UTF8
+  Set-Content -LiteralPath (Join-Path $fixtureInner 'a-random-image-name.png') -Value 'fake image 1' -Encoding UTF8
+  Set-Content -LiteralPath (Join-Path $fixtureInner 'b-random-image-name.png') -Value 'fake image 2' -Encoding UTF8
+  Compress-Archive -Path (Join-Path $fixtureInner '*') -DestinationPath $innerZip -Force
+  Compress-Archive -Path $innerZip -DestinationPath $outerZip -Force
+
   & $scriptPath `
-    -ZipPath $ZipPath `
+    -ZipPath $outerZip `
     -BlogRoot $blogRoot `
     -AssetsRoot $assetsRoot `
-    -Tags 'JWT','PortSwigger' `
+    -Tags 'Notion','Example' `
     -Categories 'Web Security','Auth Session'
 
-  $articlePath = Join-Path $blogRoot 'portswigger-jwt\portswigger-jwt.md'
-  $assetDir = Join-Path $assetsRoot 'portswigger-jwt'
-  $firstImage = Join-Path $assetDir 'portswigger-jwt-001.png'
+  $articlePath = Join-Path $blogRoot 'test-article\test-article.md'
+  $assetDir = Join-Path $assetsRoot 'test-article'
+  $firstImage = Join-Path $assetDir 'test-article-001.png'
 
   Assert-True (Test-Path -LiteralPath $articlePath) 'article should be written to docs/blog/<slug>/<slug>.md'
   Assert-True (Test-Path -LiteralPath $assetDir) 'asset directory should be named after the article slug'
@@ -39,14 +56,14 @@ try {
   $content = Get-Content -LiteralPath $articlePath -Raw
   $images = @(Get-ChildItem -LiteralPath $assetDir -File)
 
-  Assert-True ($images.Count -eq 48) 'all referenced Notion images should be copied'
-  Assert-True ($content -match 'title: PortSwigger-JWT') 'frontmatter should keep the original title'
-  Assert-True ($content.Contains('  - JWT')) 'frontmatter should include the first provided tag'
-  Assert-True ($content.Contains('  - PortSwigger')) 'frontmatter should include the second provided tag'
+  Assert-True ($images.Count -eq 2) 'all referenced Notion images should be copied'
+  Assert-True ($content -match 'title: Test Article') 'frontmatter should keep the original title'
+  Assert-True ($content.Contains('  - Notion')) 'frontmatter should include the first provided tag'
+  Assert-True ($content.Contains('  - Example')) 'frontmatter should include the second provided tag'
   Assert-True ($content.Contains('  - Web Security')) 'frontmatter should include the first provided category'
   Assert-True ($content.Contains('  - Auth Session')) 'frontmatter should include the second provided category'
-  Assert-True ($content -match '/assets/img/portswigger-jwt/portswigger-jwt-001\.png') 'markdown should point at the public asset path'
-  Assert-True ($content -notmatch '792a2d56-4b06-40e0-ae38-b3f730fd1ab9\.png') 'markdown should not keep Notion random image names'
+  Assert-True ($content -match '/assets/img/test-article/test-article-001\.png') 'markdown should point at the public asset path'
+  Assert-True ($content -notmatch 'a-random-image-name\.png') 'markdown should not keep Notion random image names'
 
   Write-Output 'import-notion-zip tests passed'
 }
