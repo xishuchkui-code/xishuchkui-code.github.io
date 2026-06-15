@@ -8,7 +8,7 @@ docs/.vuepress/.temp/
 docs/.vuepress/dist/
 .temp/
 .cache/
-public/
+/public/
 _site/
 .jekyll-cache/
 .jekyll-metadata
