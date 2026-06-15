@@ -8,6 +8,16 @@
   --vp-c-divider: rgba(15, 23, 42, 0.1);
 }
 
+:root[data-theme="dark"] {
+  --vp-c-brand-1: #2dd4bf;
+  --vp-c-brand-2: #14b8a6;
+  --vp-c-brand-3: #0f766e;
+  --vp-c-brand-soft: rgba(45, 212, 191, 0.16);
+  --vp-c-bg: #10141b;
+  --vp-c-bg-alt: #171d27;
+  --vp-c-divider: rgba(226, 232, 240, 0.12);
+}
+
 html {
   letter-spacing: 0;
 }

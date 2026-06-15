@@ -22,4 +22,4 @@ npm run docs:build
 
 The build output is generated in `docs/.vuepress/dist`.
 
-GitHub Actions deploys every push to the `source` branch into the `main` branch for GitHub Pages.
+GitHub Actions deploys every push to the `main` branch with the official GitHub Pages artifact workflow.

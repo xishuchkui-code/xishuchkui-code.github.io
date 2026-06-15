@@ -15,7 +15,7 @@ export default defineUserConfig({
   theme: plumeTheme({
     hostname: 'https://xishuchkui-code.github.io',
     docsRepo: 'xishuchkui-code/xishuchkui-code.github.io',
-    docsBranch: 'source',
+    docsBranch: 'main',
     docsDir: 'docs',
     editLink: false,
     lastUpdated: true,
