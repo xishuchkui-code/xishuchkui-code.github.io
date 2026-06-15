@@ -8,8 +8,9 @@ export default defineUserConfig({
   description: '记录 Web 安全学习、靶场实验、漏洞原理和工具环境配置。',
   base: '/',
   head: [
-    ['link', { rel: 'icon', href: '/assets/img/favicons/favicon.ico' }],
-    ['meta', { name: 'theme-color', content: '#0f766e' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/assets/img/brand/favicon-32.png' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/assets/img/brand/apple-touch-icon.png' }],
+    ['meta', { name: 'theme-color', content: '#121421' }],
   ],
   bundler: viteBundler(),
   theme: plumeTheme({
@@ -21,6 +22,8 @@ export default defineUserConfig({
     lastUpdated: true,
     contributors: false,
     autoFrontmatter: false,
+    logo: '/assets/img/brand/favicon-32.png',
+    logoDark: '/assets/img/brand/favicon-32.png',
     search: {
       provider: 'local',
     },
@@ -52,7 +55,7 @@ export default defineUserConfig({
         profile: {
           name: 'xidumplings',
           description: 'Web 安全学习笔记、靶场复盘和工具记录。',
-          avatar: '/assets/img/xiaoye.jpg',
+          avatar: '/assets/img/brand/xiaoye.png',
           location: 'Asia/Shanghai',
           organization: 'xishuchkui-code',
         },

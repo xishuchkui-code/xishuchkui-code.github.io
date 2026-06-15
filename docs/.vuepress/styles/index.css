@@ -6,6 +6,11 @@
   --vp-c-bg: #f8fafc;
   --vp-c-bg-alt: #f1f5f9;
   --vp-c-divider: rgba(15, 23, 42, 0.1);
+  --vp-c-text-hero-name: #ffffff;
+  --vp-c-text-hero-tagline: rgba(255, 255, 255, 0.88);
+  --vp-c-text-hero-text: rgba(255, 255, 255, 0.78);
+  --blog-accent-gold: #f6c453;
+  --blog-orbit-violet: #6d4ed8;
 }
 
 :root[data-theme="dark"] {
@@ -16,10 +21,125 @@
   --vp-c-bg: #10141b;
   --vp-c-bg-alt: #171d27;
   --vp-c-divider: rgba(226, 232, 240, 0.12);
+  --blog-accent-gold: #ffd166;
+  --blog-orbit-violet: #8b5cf6;
 }
 
 html {
   letter-spacing: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 8%, rgba(109, 78, 216, 0.08), transparent 32rem),
+    radial-gradient(circle at 82% 18%, rgba(246, 196, 83, 0.07), transparent 28rem),
+    var(--vp-c-bg);
+}
+
+:root[data-theme="dark"] body {
+  background:
+    linear-gradient(rgba(16, 20, 27, 0.82), rgba(16, 20, 27, 0.94)),
+    url("/assets/img/brand/black-hole.png") center top / cover fixed,
+    var(--vp-c-bg);
+}
+
+.VPNavBarTitle .logo {
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.24);
+}
+
+.vp-home-banner {
+  min-height: min(760px, calc(100vh - var(--vp-nav-height)));
+  background-position: 50% 42%;
+}
+
+.vp-home-banner::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 42%;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(to bottom, transparent, var(--vp-c-bg));
+}
+
+.vp-home-banner .container {
+  min-height: min(720px, calc(100vh - var(--vp-nav-height)));
+}
+
+.vp-home-banner .content {
+  max-width: 780px;
+  padding: 0 1.5rem;
+  text-shadow: 0 12px 32px rgba(0, 0, 0, 0.48);
+}
+
+.vp-layout .vp-home .vp-home-banner .content .hero-name {
+  font-size: 92px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.vp-home-banner .content .hero-name::after {
+  display: block;
+  width: 96px;
+  height: 3px;
+  margin-top: 18px;
+  content: "";
+  background: linear-gradient(90deg, var(--blog-accent-gold), var(--vp-c-brand-1), transparent);
+  border-radius: 999px;
+}
+
+.vp-home-banner .content .hero-tagline {
+  color: var(--vp-c-text-hero-tagline);
+}
+
+.vp-home-banner .content .hero-tagline .line {
+  border-top-color: var(--blog-accent-gold);
+}
+
+.vp-home-banner .content .hero-text {
+  max-width: 620px;
+  color: var(--vp-c-text-hero-text);
+}
+
+.vp-home-banner .actions .VPButton.brand {
+  border-color: rgba(45, 212, 191, 0.42);
+  box-shadow: 0 14px 34px rgba(20, 184, 166, 0.22);
+}
+
+.vp-home .layout {
+  position: relative;
+}
+
+.vp-home .layout::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 78% 0%, rgba(109, 78, 216, 0.08), transparent 24rem),
+    radial-gradient(circle at 14% 12%, rgba(246, 196, 83, 0.06), transparent 20rem);
+}
+
+.vp-post-list .vp-post-item,
+.vp-blog-profile,
+.vp-page [class*="profile"] {
+  backdrop-filter: blur(10px);
+}
+
+.vp-blog-profile img,
+.vp-home-profile img {
+  border: 2px solid rgba(45, 212, 191, 0.42);
+  box-shadow:
+    0 0 0 6px rgba(45, 212, 191, 0.08),
+    0 18px 42px rgba(15, 23, 42, 0.16);
+}
+
+:root[data-theme="dark"] .vp-blog-profile img,
+:root[data-theme="dark"] .vp-home-profile img {
+  border-color: rgba(255, 209, 102, 0.54);
+  box-shadow:
+    0 0 0 6px rgba(255, 209, 102, 0.08),
+    0 18px 48px rgba(0, 0, 0, 0.34);
 }
 
 .vp-doc {
@@ -47,5 +167,25 @@ html {
 @media (max-width: 767px) {
   .vp-doc {
     line-height: 1.75;
+  }
+
+  .vp-layout .vp-home .vp-home-banner .content .hero-name {
+    font-size: 42px;
+  }
+
+  .vp-home-banner .content .hero-name::after {
+    width: 72px;
+    margin-top: 14px;
+  }
+
+  .vp-home-banner .content .hero-tagline .line {
+    width: 48px;
+    margin-right: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .vp-layout .vp-home .vp-home-banner .content .hero-name {
+    font-size: 36px;
   }
 }
