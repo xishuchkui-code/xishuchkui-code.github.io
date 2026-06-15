@@ -8,6 +8,8 @@ categories:
   - pwn
   - reverse
   - web
+tags:
+  - CTF
 flag_format: "flag{...} / HUBU{...}"
 author: "xishu"
 ---
