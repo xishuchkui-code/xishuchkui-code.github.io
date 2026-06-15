@@ -2,7 +2,7 @@
 home: true
 config:
   - type: banner
-    banner: /assets/img/brand/black-hole.png
+    banner: /assets/img/brand/black-hole.webp
     bannerMask:
       light: 0.34
       dark: 0.48

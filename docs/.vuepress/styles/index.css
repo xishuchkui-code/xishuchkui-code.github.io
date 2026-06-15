@@ -39,7 +39,7 @@ body {
 :root[data-theme="dark"] body {
   background:
     linear-gradient(rgba(16, 20, 27, 0.82), rgba(16, 20, 27, 0.94)),
-    url("/assets/img/brand/black-hole.png") center top / cover fixed,
+    url("/assets/img/brand/black-hole.webp") center top / cover fixed,
     var(--vp-c-bg);
 }
 
