@@ -3,6 +3,13 @@ title: PortSwigger-SSRF
 createTime: 2026/02/17 16:38:37
 permalink: /posts/portswigger-ssrf/
 description: 记录 PortSwigger SSRF 靶场的抓包分析、payload 构造和实验复盘。
+cover: /assets/img/PortSwigger-SSRF/PortSwigger-SSRF-20260325142213.png
+excerpt: 围绕 stockApi、内网探测和过滤绕过，记录 SSRF 靶场中从参数发现到后端访问控制绕过的过程。
+sticky: 22
+categories:
+  - Web 安全
+  - SSRF
+  - 靶场复盘
 tags:
   - SSRF
   - PortSwigger

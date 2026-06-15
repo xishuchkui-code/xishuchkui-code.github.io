@@ -3,6 +3,13 @@ title: PortSwigger-文件上传漏洞
 createTime: 2025/12/09 17:31:31
 permalink: /posts/portswigger-file-upload/
 description: 记录 PortSwigger 文件上传漏洞实验的请求分析、绕过方式和复盘要点。
+cover: /assets/img/PortSwigger-文件上传漏洞/PortSwigger-文件上传漏洞-1774676470436.png
+excerpt: 通过 PortSwigger 文件上传系列实验，复盘 WebShell 上传、类型限制绕过和解析差异带来的风险。
+sticky: 20
+categories:
+  - Web 安全
+  - 文件上传
+  - 靶场复盘
 tags:
   - 文件上传
   - PortSwigger

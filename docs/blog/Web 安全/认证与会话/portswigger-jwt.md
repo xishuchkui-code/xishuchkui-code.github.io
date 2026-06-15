@@ -3,6 +3,13 @@ title: PortSwigger-JWT
 createTime: 2026/04/03 14:57:21
 permalink: /posts/portswigger-jwt/
 description: 记录 PortSwigger JWT 相关实验的解题过程、关键请求和验证思路。
+cover: /assets/img/PortSwigger-JWT/PortSwigger-JWT-1774871623935.png
+excerpt: 以 PortSwigger JWT 靶场为线索，复盘未验证签名、算法混淆、kid 注入等认证绕过场景。
+sticky: 30
+categories:
+  - Web 安全
+  - 认证与会话
+  - 靶场复盘
 tags:
   - JWT
   - PortSwigger

@@ -3,6 +3,11 @@ title: JWT介绍与原理
 createTime: 2026/03/31 11:07:59
 permalink: /posts/jwt-introduction/
 description: 梳理 JWT 的组成、签名验证、常见风险和安全使用边界。
+cover: /assets/img/JWT介绍与原理/JWT介绍与原理-1774871052123.png
+excerpt: 从 Header、Payload、Signature 到签名校验和安全实践，整理 JWT 作为无状态认证方案时需要关注的边界。
+categories:
+  - Web 安全
+  - 认证与会话
 tags:
   - JWT
   - 认证

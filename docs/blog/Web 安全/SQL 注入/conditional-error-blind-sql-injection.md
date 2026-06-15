@@ -3,6 +3,11 @@ title: 带条件错误的盲SQL注入
 createTime: 2025/12/06 10:59:48
 permalink: /posts/conditional-error-blind-sql-injection/
 description: 记录带条件错误回显的盲 SQL 注入判断方法和实验过程。
+cover: /assets/img/带条件错误的盲SQL注入/带条件错误的盲SQL注入-20260318145843.png
+excerpt: 通过条件错误回显构造布尔判断，用 Oracle dual、CASE WHEN 和除零报错逐步还原盲注判断链路。
+categories:
+  - Web 安全
+  - SQL 注入
 tags:
   - SQL 注入
   - 盲注

