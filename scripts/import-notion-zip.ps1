@@ -5,12 +5,15 @@ Imports a two-layer Notion Markdown export zip into this Plume blog.
 .DESCRIPTION
 The importer expects a Notion export where the outer zip contains an inner zip,
 and the inner zip contains one or more Markdown files plus images in the same
-directory. Each Markdown file is imported into docs/blog/<slug>/<slug>.md, while
-its referenced images are copied to docs/.vuepress/public/assets/img/<slug>/ and
-renamed in reading order.
+directory. Each Markdown file is imported into <notes-root>/<slug>/<slug>.md,
+while its referenced images are copied to docs/.vuepress/public/assets/img/<slug>/
+and renamed in reading order.
 
 .EXAMPLE
 pwsh -File .\scripts\import-notion-zip.ps1 -ZipPath E:\Blog\1111.zip -Tags JWT,PortSwigger -Categories "Web 安全","认证与会话"
+
+.EXAMPLE
+pwsh -File .\scripts\import-notion-zip.ps1 -ZipPath .\1111.zip -NotesRoot "docs/blog/Web 安全/认证与会话"
 
 .EXAMPLE
 pwsh -File .\scripts\import-notion-zip.ps1 -ZipPath .\1111.zip -Force
@@ -20,6 +23,7 @@ param(
   [Parameter(Mandatory = $true)]
   [string]$ZipPath,
 
+  [Alias('NotesRoot', 'NoteRoot', 'ArticleRoot')]
   [string]$BlogRoot = 'docs/blog',
 
   [string]$AssetsRoot = 'docs/.vuepress/public/assets/img',

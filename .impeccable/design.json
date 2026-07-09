@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-09T00:00:00+08:00",
+  "title": "Design System: xidumplings",
+  "extensions": {
+    "colorMeta": {
+      "brand-teal-deep": {
+        "role": "primary",
+        "displayName": "Signal Teal Deep",
+        "canonical": "#0f766e",
+        "tonalRamp": ["oklch(18% 0.05 190)", "oklch(28% 0.07 190)", "oklch(38% 0.09 190)", "oklch(48% 0.10 190)", "oklch(58% 0.11 190)", "oklch(70% 0.09 190)", "oklch(82% 0.06 190)", "oklch(94% 0.03 190)"]
+      },
+      "brand-teal-bright": {
+        "role": "primary",
+        "displayName": "Bright Teal",
+        "canonical": "#14b8a6",
+        "tonalRamp": ["oklch(18% 0.05 190)", "oklch(30% 0.08 190)", "oklch(42% 0.10 190)", "oklch(54% 0.12 190)", "oklch(66% 0.13 190)", "oklch(76% 0.10 190)", "oklch(86% 0.07 190)", "oklch(95% 0.03 190)"]
+      },
+      "signal-gold": {
+        "role": "secondary",
+        "displayName": "Discovery Gold",
+        "canonical": "#ffd166",
+        "tonalRamp": ["oklch(20% 0.04 80)", "oklch(32% 0.06 80)", "oklch(44% 0.08 80)", "oklch(56% 0.10 80)", "oklch(70% 0.12 80)", "oklch(80% 0.10 80)", "oklch(88% 0.07 80)", "oklch(96% 0.03 80)"]
+      },
+      "orbit-violet": {
+        "role": "tertiary",
+        "displayName": "Orbit Violet",
+        "canonical": "#8b5cf6",
+        "tonalRamp": ["oklch(18% 0.06 300)", "oklch(30% 0.09 300)", "oklch(42% 0.12 300)", "oklch(54% 0.14 300)", "oklch(66% 0.13 300)", "oklch(76% 0.10 300)", "oklch(86% 0.07 300)", "oklch(95% 0.03 300)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Hero Display",
+        "purpose": "Hero name and rare landing-page statements."
+      },
+      "body": {
+        "displayName": "Long-read Body",
+        "purpose": "Security notes, walkthroughs, explanations, and evidence chains."
+      }
+    },
+    "shadows": [
+      {
+        "name": "action-glow",
+        "value": "0 14px 34px rgba(20, 184, 166, 0.22)",
+        "purpose": "Primary home CTA only."
+      },
+      {
+        "name": "feature-ambient",
+        "value": "0 18px 48px rgba(0, 0, 0, 0.24)",
+        "purpose": "Dark-mode feature cards and major panels."
+      },
+      {
+        "name": "post-lift",
+        "value": "0 16px 42px rgba(0, 0, 0, 0.22)",
+        "purpose": "Post cards with covers in dark mode."
+      }
+    ],
+    "motion": [
+      {
+        "name": "spring-soft",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default settle motion for route, card, and surface transitions."
+      },
+      {
+        "name": "spring-pop",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "purpose": "Small feedback moments such as CTA hover or icon response."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce)",
+        "purpose": "Disable transform-heavy effects and keep opacity/duration minimal."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "767px"
+      },
+      {
+        "name": "narrow",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Hero Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Teal CTA for entering the blog or a key archive route.",
+      "html": "<button class=\"ds-btn-primary\">进入博客</button>",
+      "css": ".ds-btn-primary{border:1px solid rgba(45,212,191,.42);border-radius:999px;background:#14b8a6;color:#fff;padding:.75rem 1.25rem;font:600 14px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;box-shadow:0 14px 34px rgba(20,184,166,.22);transition:transform .42s cubic-bezier(.34,1.56,.64,1),box-shadow .32s cubic-bezier(.16,1,.3,1),background-color .2s ease}.ds-btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(20,184,166,.28)}.ds-btn-primary:focus-visible{outline:3px solid rgba(255,209,102,.72);outline-offset:3px}"
+    },
+    {
+      "name": "Feature Card",
+      "kind": "card",
+      "refersTo": "feature-card",
+      "description": "Home-page research-route card.",
+      "html": "<article class=\"ds-feature-card\"><div class=\"ds-feature-icon\">⌁</div><h3>Web 安全笔记</h3><p>梳理认证、服务端请求、注入、上传等常见攻击面。</p></article>",
+      "css": ".ds-feature-card{border:1px solid rgba(226,232,240,.12);border-radius:8px;background:linear-gradient(145deg,rgba(23,29,39,.9),rgba(16,20,27,.72)),#171d27;color:#fff;padding:1.5rem;box-shadow:0 18px 48px rgba(0,0,0,.24);transition:transform .45s cubic-bezier(.16,1,.3,1),border-color .25s ease}.ds-feature-card:hover{transform:translateY(-4px);border-color:rgba(45,212,191,.34)}.ds-feature-card h3{margin:.75rem 0 .5rem;font:700 1.1rem/1.25 Inter,ui-sans-serif,system-ui,sans-serif}.ds-feature-card p{margin:0;color:rgba(255,255,255,.76);line-height:1.7}.ds-feature-icon{color:#ffd166}"
+    },
+    {
+      "name": "Post Card",
+      "kind": "card",
+      "refersTo": "post-card",
+      "description": "Article preview card with cover and metadata.",
+      "html": "<article class=\"ds-post-card\"><div class=\"ds-post-cover\"></div><h3>JWT介绍与原理</h3><p>从 Header、Payload、Signature 到签名校验和安全实践。</p></article>",
+      "css": ".ds-post-card{overflow:hidden;border:1px solid rgba(226,232,240,.12);border-radius:8px;background:#171d27;color:#fff;box-shadow:0 16px 42px rgba(0,0,0,.22)}.ds-post-cover{height:120px;background:radial-gradient(circle at 50% 40%,rgba(139,92,246,.55),transparent 32%),linear-gradient(135deg,#10141b,#0f766e);transition:transform .5s cubic-bezier(.16,1,.3,1)}.ds-post-card:hover .ds-post-cover{transform:scale(1.035)}.ds-post-card h3{margin:1rem 1rem .45rem;font:700 1.05rem/1.25 Inter,ui-sans-serif,system-ui,sans-serif}.ds-post-card p{margin:0 1rem 1rem;color:rgba(255,255,255,.72);line-height:1.68}"
+    },
+    {
+      "name": "Tag Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Compact category or tag affordance.",
+      "html": "<span class=\"ds-tag-chip\">JWT</span>",
+      "css": ".ds-tag-chip{display:inline-flex;align-items:center;border:1px solid rgba(45,212,191,.26);border-radius:999px;background:rgba(45,212,191,.12);color:#2dd4bf;padding:.25rem .62rem;font:600 12px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;transition:background-color .2s ease,border-color .2s ease}.ds-tag-chip:hover{background:rgba(45,212,191,.18);border-color:rgba(45,212,191,.42)}"
+    },
+    {
+      "name": "Hero Underline",
+      "kind": "custom",
+      "refersTo": "hero-underline",
+      "description": "Gold-to-teal signal line under the hero name.",
+      "html": "<span class=\"ds-hero-underline\"></span>",
+      "css": ".ds-hero-underline{display:block;width:96px;height:3px;border-radius:999px;background:linear-gradient(90deg,#ffd166,#2dd4bf,transparent);transform-origin:left center;animation:ds-line-in .72s cubic-bezier(.16,1,.3,1) both}@keyframes ds-line-in{from{transform:scaleX(.35);opacity:0}to{transform:scaleX(1);opacity:1}}@media (prefers-reduced-motion:reduce){.ds-hero-underline{animation:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Black-Hole Lab Notebook",
+    "overview": "This system is a dark, evidence-first research notebook for Web security learning. The black-hole hero gives the site its atmosphere, but the interface must stay disciplined: navigation, article lists, code blocks, screenshots, tags, and archives are the working surface.",
+    "keyCharacteristics": [
+      "Dark-first, with a credible light mode inherited from VuePress Theme Plume.",
+      "Black-hole imagery used as atmosphere, not as a repeated illustration crutch.",
+      "Teal as the primary action/security color; gold as a rare discovery accent.",
+      "Compact radii (4–8px) for technical seriousness; pills only for buttons, tags, and avatar rings.",
+      "Motion as feedback and orientation, not spectacle."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Rarity Rule",
+        "body": "Gold is evidence, not decoration. If gold appears everywhere, it stops meaning discovery.",
+        "section": "colors"
+      },
+      {
+        "name": "The Teal Means Action Rule",
+        "body": "Teal should primarily indicate navigation, selection, links, and actions. Do not scatter it as random ornament.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Terminal Costume Rule",
+        "body": "Monospace belongs in code, filenames, payloads, commands, and short technical labels. Do not make the whole brand look like a terminal.",
+        "section": "typography"
+      },
+      {
+        "name": "The Long-Read Rule",
+        "body": "Article body text and code blocks always outrank hero drama. If a visual treatment reduces scanability, remove it.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Depth Reason Rule",
+        "body": "A surface may use a border, tonal contrast, or a soft shadow, but not all three at full strength.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the dark-first black-hole atmosphere while keeping article pages calm.",
+      "Do use teal for active states, links, CTAs, and focus treatments.",
+      "Do use spring-like motion for button response, card hover, image settle, and route/page transitions.",
+      "Do include `prefers-reduced-motion: reduce` for every new animation.",
+      "Do keep cards at `8px` radius and images at `6px` radius unless the Theme Plume component requires otherwise.",
+      "Do make code, screenshots, tags, and headings easier to scan before adding decoration."
+    ],
+    "donts": [
+      "Don't make the site look like a template SaaS landing page.",
+      "Don't overdo cyberpunk: no full-screen neon, glitch spam, flashing scanlines, or motion that fights reading.",
+      "Don't use monospace as a lazy shorthand for technical credibility outside code and short labels.",
+      "Don't add gradient text, side-stripe card accents, or repeated tiny uppercase section eyebrows.",
+      "Don't pair `border: 1px solid ...` with large soft shadows on every card.",
+      "Don't block content visibility behind scroll-triggered animation classes."
+    ]
+  }
+}

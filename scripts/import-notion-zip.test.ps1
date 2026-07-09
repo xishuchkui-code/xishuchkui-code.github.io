@@ -13,7 +13,7 @@ function Assert-True {
 
 $scriptPath = Join-Path $PSScriptRoot 'import-notion-zip.ps1'
 $tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("notion-import-test-" + [guid]::NewGuid().ToString('N'))
-$blogRoot = Join-Path $tempRoot 'docs\blog'
+$notesRoot = Join-Path $tempRoot 'custom-notes\Security Notes'
 $assetsRoot = Join-Path $tempRoot 'docs\.vuepress\public\assets\img'
 $fixtureInner = Join-Path $tempRoot 'fixture-inner'
 $fixtureOuter = Join-Path $tempRoot 'fixture-outer'
@@ -40,16 +40,16 @@ More notes.
 
   & $scriptPath `
     -ZipPath $outerZip `
-    -BlogRoot $blogRoot `
+    -NotesRoot $notesRoot `
     -AssetsRoot $assetsRoot `
     -Tags 'Notion','Example' `
     -Categories 'Web Security','Auth Session'
 
-  $articlePath = Join-Path $blogRoot 'test-article\test-article.md'
+  $articlePath = Join-Path $notesRoot 'test-article\test-article.md'
   $assetDir = Join-Path $assetsRoot 'test-article'
   $firstImage = Join-Path $assetDir 'test-article-001.png'
 
-  Assert-True (Test-Path -LiteralPath $articlePath) 'article should be written to docs/blog/<slug>/<slug>.md'
+  Assert-True (Test-Path -LiteralPath $articlePath) 'article should be written under the custom notes root'
   Assert-True (Test-Path -LiteralPath $assetDir) 'asset directory should be named after the article slug'
   Assert-True (Test-Path -LiteralPath $firstImage) 'first referenced image should be renamed with a stable sequence number'
 
@@ -63,6 +63,8 @@ More notes.
   Assert-True ($content.Contains('  - Web Security')) 'frontmatter should include the first provided category'
   Assert-True ($content.Contains('  - Auth Session')) 'frontmatter should include the second provided category'
   Assert-True ($content -match '/assets/img/test-article/test-article-001\.png') 'markdown should point at the public asset path'
+  Assert-True ($content -match '/assets/img/test-article/test-article-002\.png') 'markdown should keep image links independent from the custom notes root'
+  Assert-True (-not $content.Contains($notesRoot)) 'markdown image links should not point at the local notes directory'
   Assert-True ($content -notmatch 'a-random-image-name\.png') 'markdown should not keep Notion random image names'
 
   Write-Output 'import-notion-zip tests passed'
